@@ -15,7 +15,7 @@ class Climate extends StatefulWidget {
 }
 
 class _ClimateState extends State<Climate> {
-  var cityEntered;
+  var cityEntered = "Karachi";
 
   Future goToNextScreen(BuildContext context) async {
     Map? result = await Navigator.of(context)
@@ -24,23 +24,22 @@ class _ClimateState extends State<Climate> {
     }));
 
     if (result != null && result.containsKey('enter')) {
-      cityEntered = result['enter'];
+      setState(() {
+        cityEntered = result['enter'];
+      });
     } else {
       print('nothing');
     }
   }
 
-  // void showweather() async {
-  //   Map data = await getWeather(utils.appId, utils.defaultCity);
-  //   print(data.toString());
-  // }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      extendBodyBehindAppBar: true,
       appBar: AppBar(
         title: Text("Weather App"),
-        backgroundColor: Colors.blueGrey,
+        backgroundColor: Colors.transparent,
+        elevation: 0,
         actions: [
           IconButton(
             onPressed: () {
@@ -62,7 +61,7 @@ class _ClimateState extends State<Climate> {
           ),
           Container(
             alignment: Alignment.topRight,
-            margin: EdgeInsets.fromLTRB(0, 10.9, 20.9, 0),
+            margin: EdgeInsets.fromLTRB(0, 110.9, 20.9, 0),
             child: Text(
               '${cityEntered}',
               style: TextStyle(
@@ -78,7 +77,7 @@ class _ClimateState extends State<Climate> {
             child: Image.asset('images/clouds.webp'),
           ),
           Container(
-            margin: EdgeInsets.fromLTRB(30.0, 390.0, 0.0, 0.0),
+            margin: EdgeInsets.fromLTRB(30.0, 440.0, 0.0, 0.0),
             child: updateTempWidget(cityEntered),
           )
         ],
